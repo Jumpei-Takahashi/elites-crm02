@@ -3,8 +3,6 @@ class CustomersController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   
   def index
-    @customers = Customer.all
-    # @customers = Customer.page(params[:page])
     @q = Customer.search(params[:q])
     @customers = @q.result(distinct: true).page(params[:page])
   end
@@ -48,6 +46,6 @@ class CustomersController < ApplicationController
   private
   
   def customer_params
-    params.require(:customer.permit:family_name, :given_name, :email, :company_id, :post_id)
+    params.require(:customer).permit(:family_name, :given_name, :email, :company_id, :post_id)
   end
 end
