@@ -7,10 +7,10 @@ class CommentsController < ApplicationController
     
     def create
         @comment = Comment.new(comment_params)
-        if @comment.save
-          redirect_to customer_path(@comment.customer_id)
+        if  @comment.save
+            redirect_to customer_path(@comment.customer_id)
         else
-          redirect_to customer_path(@comment.customer_id)
+            redirect_to customer_path(@comment.customer_id)
         end
     end
     
