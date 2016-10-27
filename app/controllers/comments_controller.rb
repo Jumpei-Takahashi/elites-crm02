@@ -7,10 +7,16 @@ class CommentsController < ApplicationController
     
     def create
         @comment = Comment.new(comment_params)
+            
         if  @comment.save
+            # コメントが保存されたらコメントが投稿されたページにリダイレクトさせる
             redirect_to customer_path(@comment.customer_id)
         else
-            redirect_to customer_path(@comment.customer_id)
+            # customer_idに紐づくコメントを探して、@customerに代入
+            @customer = Customer.find(@comment.customer_id)
+            # @customer に紐づくコメントを@commentに代入
+            @comments = @customer.comments
+            render template: "customers/show"
         end
     end
     
