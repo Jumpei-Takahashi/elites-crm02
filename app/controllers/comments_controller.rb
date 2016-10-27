@@ -7,9 +7,8 @@ class CommentsController < ApplicationController
     
     def create
         @comment = Comment.new(comment_params)
-            # バリデーションのチェック
-        if  @comment.valid?
-            @comment.save
+            
+        if  @comment.save
             # コメントが保存されたらコメントが投稿されたページにリダイレクトさせる
             redirect_to customer_path(@comment.customer_id)
         else
