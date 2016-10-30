@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
             # コメントが保存されたらコメントが投稿されたページにリダイレクトさせる
             redirect_to customer_path(@comment.customer_id)
         else
-            # customer_idに紐づくコメントを探して、@customerに代入
+            # customer_idに紐づくコメントを探して、コメントに紐づくカスタマーを@customerに代入
             @customer = Customer.find(@comment.customer_id)
             # @customer に紐づくコメントを@commentに代入
             @comments = @customer.comments
@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
     private
     
     def comment_params
-        params.require(:comment).permit(:body, :customer_id)
+        params.require(:comment).permit(:body, :customer_id, :user_id)
     end
     
 end
