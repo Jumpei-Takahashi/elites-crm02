@@ -18,6 +18,8 @@
         
         <h2>対応履歴</h2>
         <% @comments.each do |comment| %>
+          <!--#ユーザーが設定したプロフィール画像をコメント毎に表示させる-->
+          <%= image_tag(current_user.image_url, :size => "48x48", :alt => "プロフィール画像") %>
           <div class="media">
             <div class="media-body">
               <%= simple_format(comment.body) %>
@@ -42,13 +44,17 @@
           <% end %>
         
         <hr />
+        <!--#ユーザーが設定したプロフィール画像を表示-->
         <%= image_tag(current_user.image_url, :size => "48x48", :alt => "プロフィール画像") %>
         <%= form_for(@comment, url: { controller: :comments, action: :create }) do |f| %>
           <div class="form-group">
             <%= f.label :body , '対応内容' %><br>
             <%= f.text_area :body, class: "form-control" %>
           </div>
+          <!--#customer_idの入力を省略-->
           <%= f.hidden_field :customer_id, value: @customer.id %>
+          <!--#user_idの入力を省略-->
+          <%= f.hidden_field :user_id, value: current_user.id %>
           <%= f.submit class: "btn btn-default" %>
         <% end %>
     </div>
